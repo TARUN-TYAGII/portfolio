@@ -28,6 +28,13 @@ export default function Home() {
     document.body.removeChild(link);
   };
 
+  const scrollToSection = (sectionId) => {
+    const element = document.getElementById(sectionId);
+    if (element) {
+      element.scrollIntoView({ behavior: "smooth" });
+    }
+  };
+
   const handleSubmitButton = async (e) => {
     e.preventDefault();
     if (!name || !email || !message) {
@@ -38,7 +45,7 @@ export default function Home() {
     try {
       const sendingToast = toast.loading("Sending message...", toastConfig);
 
-      const response = await axios.post("/api/send-email", {
+      const response = await axios.post("tarun-tyagi-portfolio.vercel.app/api/send-email", {
         name,
         email,
         message,
