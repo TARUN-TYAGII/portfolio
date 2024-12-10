@@ -1,101 +1,204 @@
-import Image from "next/image";
+"use client";
+
+import React, { useState } from "react";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+import axios from "axios";
+
+const toastConfig = {
+  position: "bottom-right",
+  autoClose: 3000,
+  hideProgressBar: false,
+  closeOnClick: true,
+  pauseOnHover: true,
+  draggable: true,
+};
 
 export default function Home() {
-  return (
-    <div className="grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20 font-[family-name:var(--font-geist-sans)]">
-      <main className="flex flex-col gap-8 row-start-2 items-center sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={180}
-          height={38}
-          priority
-        />
-        <ol className="list-inside list-decimal text-sm text-center sm:text-left font-[family-name:var(--font-geist-mono)]">
-          <li className="mb-2">
-            Get started by editing{" "}
-            <code className="bg-black/[.05] dark:bg-white/[.06] px-1 py-0.5 rounded font-semibold">
-              app/page.js
-            </code>
-            .
-          </li>
-          <li>Save and see your changes instantly.</li>
-        </ol>
+  const [name, setName] = useState("");
+  const [email, setEmail] = useState("");
+  const [message, setMessage] = useState("");
 
-        <div className="flex gap-4 items-center flex-col sm:flex-row">
-          <a
-            className="rounded-full border border-solid border-transparent transition-colors flex items-center justify-center bg-foreground text-background gap-2 hover:bg-[#383838] dark:hover:bg-[#ccc] text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={20}
-              height={20}
-            />
-            Deploy now
-          </a>
-          <a
-            className="rounded-full border border-solid border-black/[.08] dark:border-white/[.145] transition-colors flex items-center justify-center hover:bg-[#f2f2f2] dark:hover:bg-[#1a1a1a] hover:border-transparent text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 sm:min-w-44"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Read our docs
-          </a>
+  const handleDownloadCV = () => {
+    const link = document.createElement("a");
+    link.href = "/assets/TARUN.pdf";
+    link.download = "TARUN.pdf";
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+  };
+
+  const handleSubmitButton = async (e) => {
+    e.preventDefault();
+    if (!name || !email || !message) {
+      toast.error("Please fill all the fields.",toastConfig);
+      return;
+    }
+
+    try {
+      const sendingToast = toast.loading("Sending message...", toastConfig);
+
+      const response = await axios.post("/api/send-email", {
+        name,
+        email,
+        message,
+      });
+
+      toast.dismiss(sendingToast);
+      toast.success("Message sent successfully!", toastConfig);
+
+      setName("");
+      setEmail("");
+      setMessage("");
+    } catch (error) {
+      toast.error("Failed to send message. Please try again.", toastConfig);
+      console.error("Submission error:", error);
+    }
+  };
+
+  return (
+    <>
+      <div className="text-white bg-[#010206]">
+        <header className="sticky top-0 z-50 bg-[#010206]">
+          <div className="flex items-center justify-between p-5 border-b-2 border-gray-800">
+            <div className="flex items-center space-x-5">
+              <h1 className="text-2xl font-bold cursor-pointer hover:text-blue-400" onClick={() => scrollToSection("home")}>
+                Portfolio
+              </h1>
+            </div>
+            <nav>
+              <ul className="flex items-center space-x-5">
+                <li className="hover:text-blue-400 cursor-pointer" onClick={() => scrollToSection("home")}>
+                  Home
+                </li>
+                <li className="hover:text-blue-400 cursor-pointer" onClick={() => scrollToSection("about")}>
+                  About
+                </li>
+                <li className="hover:text-blue-400 cursor-pointer" onClick={() => scrollToSection("projects")}>
+                  Projects
+                </li>
+                <li className="hover:text-blue-400 cursor-pointer" onClick={() => scrollToSection("contact")}>
+                  Contact
+                </li>
+              </ul>
+            </nav>
+          </div>
+        </header>
+
+        <div>
+          <main>
+            {/* Hero Section */}
+            <div id="home" className="flex items-center justify-center h-screen">
+              <div className="text-center">
+                <h1 className="text-5xl font-bold mb-4">👋 Hello, I'm Tarun Tyagi</h1>
+                <p className="text-2xl text-gray-300">Full Stack Web Developer | React & Node.js Enthusiast</p>
+                <div className="mt-8 space-x-4">
+                  <button className="bg-blue-600 hover:bg-blue-700 text-white px-6 py-3 rounded-lg" onClick={handleDownloadCV}>
+                    Download CV
+                  </button>
+                  <button className="border-2 border-blue-600 text-blue-600 hover:bg-blue-600 hover:text-white px-6 py-3 rounded-lg" onClick={() => scrollToSection("contact")}>
+                    Contact Me
+                  </button>
+                </div>
+              </div>
+            </div>
+
+            {/* About Section */}
+            <div id="about" className="flex items-center justify-center h-screen">
+              <div className="max-w-2xl text-center">
+                <h1 className="text-4xl font-bold mb-8">About Me</h1>
+                <p className="text-xl text-gray-300 mb-6 text-left">
+                  I'm a passionate web developer with 2 years of experience in creating responsive and user-friendly web applications. Specialized in React, Next.js, and Node.js, I love turning
+                  complex problems into simple, beautiful solutions.
+                </p>
+                <div className="grid grid-cols-2 gap-4 mt-8">
+                  <div>
+                    <h3 className="text-2xl font-semibold">Frontend</h3>
+                    <p className="text-gray-400">Html, CSS, Javascript, React, Next.js, React Native, Tailwind CSS</p>
+                  </div>
+                  <div>
+                    <h3 className="text-2xl font-semibold">Backend</h3>
+                    <p className="text-gray-400">Node.js, Express, MongoDB, Java, Springboot, MySql</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            {/* Projects Section */}
+            <div id="projects" className="flex items-center justify-center h-screen">
+              <div className="max-w-4xl">
+                <h1 className="text-4xl font-bold text-center mb-12">Projects</h1>
+                <div className="grid md:grid-cols-3 gap-8">
+                  <div className="bg-gray-800 p-6 rounded-lg">
+                    <h3 className="text-2xl font-semibold mb-4">MoviesHub</h3>
+                    <p className="text-gray-400 mb-4 h-[5rem]">An react application to search movies and add them to favourites.</p>
+                    <div className="flex space-x-4">
+                      {/* <a href="" className="text-blue-400 hover:underline">
+                        GitHub
+                      </a> */}
+                      <a href="https://moviesearch-tarun.netlify.app/" target="_blank" className="text-blue-400 hover:underline">
+                        Live Demo
+                      </a>
+                    </div>
+                  </div>
+                  <div className="bg-gray-800 p-6 rounded-lg">
+                    <h3 className="text-2xl font-semibold mb-4">Meal App</h3>
+                    <p className="text-gray-400 mb-4 h-[5rem]">App to search the meal and get the recipe of the meal.</p>
+                    <div className="flex space-x-4">
+                      {/* <a href="https://tarun-tyagii.github.io/Meal/index.html" className="text-blue-400 hover:underline">
+                        GitHub
+                      </a> */}
+                      <a href="https://tarun-tyagii.github.io/Meal/index.html" target="_blank" className="text-blue-400 hover:underline">
+                        Live Demo
+                      </a>
+                    </div>
+                  </div>
+                  <div className="bg-gray-800 p-6 rounded-lg">
+                    <h3 className="text-2xl font-semibold mb-4">Tesla</h3>
+                    <p className="text-gray-400 mb-4 h-[5rem]">An web app to view the tesla models.</p>
+                    <div className="flex space-x-4">
+                      {/* <a href="#" className="text-blue-400 hover:underline">
+                        GitHub
+                      </a> */}
+                      <a href="https://tarun-tesla-clone.netlify.app/" target="_blank" className="text-blue-400 hover:underline">
+                        Live Demo
+                      </a>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            {/* Contact Section */}
+            <div id="contact" className="flex items-center justify-center h-screen">
+              <div className="max-w-md w-full">
+                <h1 className="text-4xl font-bold text-center mb-12">Contact Me</h1>
+                <form className="space-y-6" onSubmit={handleSubmitButton}>
+                  <input value={name} onChange={(e) => setName(e.target.value)} placeholder="Your Name" className="w-full p-3 bg-gray-800 rounded-lg" />
+                  <input value={email} onChange={(e) => setEmail(e.target.value)} placeholder="Your Email" className="w-full p-3 bg-gray-800 rounded-lg" />
+                  <textarea placeholder="Your Message" rows={4} className="w-full p-3 bg-gray-800 rounded-lg" value={message} onChange={(e) => setMessage(e.target.value)}></textarea>
+                  <button type="submit" className="w-full bg-blue-600 hover:bg-blue-700 text-white p-3 rounded-lg">
+                    Send Message
+                  </button>
+                </form>
+              </div>
+            </div>
+          </main>
         </div>
-      </main>
-      <footer className="row-start-3 flex gap-6 flex-wrap items-center justify-center">
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/file.svg"
-            alt="File icon"
-            width={16}
-            height={16}
-          />
-          Learn
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/window.svg"
-            alt="Window icon"
-            width={16}
-            height={16}
-          />
-          Examples
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/globe.svg"
-            alt="Globe icon"
-            width={16}
-            height={16}
-          />
-          Go to nextjs.org →
-        </a>
-      </footer>
-    </div>
+
+        <footer className="text-center p-6 border-t border-gray-800">
+          <p className="text-gray-400">© 2024 Tarun Tyagi. All Rights Reserved.</p>
+          <div className="flex justify-center space-x-4 mt-4">
+            <a href="https://linkedin.com/in/taruntyagii" target="_blank" className="text-gray-400 hover:text-white">
+              LinkedIn
+            </a>
+            <a href="https://github.com/TARUN-TYAGII" target="_blank" className="text-gray-400 hover:text-white">
+              GitHub
+            </a>
+          </div>
+        </footer>
+      </div>
+      <ToastContainer theme="dark" style={{ zIndex: 9999 }} />
+    </>
   );
 }
