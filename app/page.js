@@ -90,7 +90,7 @@ export default function Home() {
             {/* Hero Section */}
             <div id="home" className="flex items-center justify-center h-screen">
               <div className="text-center">
-                <h1 className="text-5xl font-bold mb-4">👋 Hello, I'm Tarun Tyagi</h1>
+                <h1 className="text-5xl font-bold mb-4">👋 Hello, I am Tarun Tyagi</h1>
                 <p className="text-2xl text-gray-300">Full Stack Web Developer | React & Node.js Enthusiast</p>
                 <div className="mt-8 space-x-4">
                   <button className="bg-blue-600 hover:bg-blue-700 text-white px-6 py-3 rounded-lg" onClick={handleDownloadCV}>
@@ -108,7 +108,7 @@ export default function Home() {
               <div className="max-w-2xl text-center">
                 <h1 className="text-4xl font-bold mb-8">About Me</h1>
                 <p className="text-xl text-gray-300 mb-6 text-left">
-                  I'm a passionate web developer with 2 years of experience in creating responsive and user-friendly web applications. Specialized in React, Next.js, and Node.js, I love turning
+                  I am a passionate web developer with 2 years of experience in creating responsive and user-friendly web applications. Specialized in React, Next.js, and Node.js, I love turning
                   complex problems into simple, beautiful solutions.
                 </p>
                 <div className="grid grid-cols-2 gap-4 mt-8">
