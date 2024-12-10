@@ -33,9 +33,9 @@ export async function POST(request: NextRequest) {
 
     // Send email
     await transporter.sendMail({
-      from: `"Portfolio Contact" <${process.env.EMAIL_USER}>`, // Use a formatted from address
+      from: `"Portfolio Contact" <${process.env.EMAIL_USER}>`, 
       to: "tyagiishiva@gmail.com",
-      replyTo: email, // Set reply-to to the sender's email
+      replyTo: email, 
       subject: "Contact from Portfolio",
       html: `
         <h1>New Form Submission</h1>
