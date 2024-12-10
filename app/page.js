@@ -51,6 +51,8 @@ export default function Home() {
         message,
       });
 
+      console.log("Response:", response.data);      
+
       toast.dismiss(sendingToast);
       toast.success("Message sent successfully!", toastConfig);
 

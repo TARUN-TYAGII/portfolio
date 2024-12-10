@@ -21,6 +21,10 @@ export async function POST(request: NextRequest) {
         user: process.env.EMAIL_USER, 
         pass: process.env.EMAIL_PASS, 
       },
+      authMethod: 'PLAIN',
+      tls: {
+        rejectUnauthorized: false
+      }
     });
 
     await transporter.sendMail({
