@@ -45,7 +45,7 @@ export default function Home() {
     try {
       const sendingToast = toast.loading("Sending message...", toastConfig);
 
-      const response = await axios.post("tarun-tyagi-portfolio.vercel.app/api/send-email", {
+      const response = await axios.post("/api/send-email", {
         name,
         email,
         message,
