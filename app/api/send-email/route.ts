@@ -7,29 +7,26 @@ export async function POST(request: NextRequest) {
     const { name, email, message } = body;
 
     if (!name || !email || !message) {
-      return NextResponse.json(
-        { message: "Missing required fields" },
-        { status: 400 }
-      );
+      return NextResponse.json({ message: "Missing required fields" }, { status: 400 });
     }
 
     const transporter = nodemailer.createTransport({
-      host: "smtp.gmail.com", 
+      host: "smtp.gmail.com",
       port: 587,
-      secure: false, 
+      secure: false,
       auth: {
-        user: process.env.EMAIL_USER, 
-        pass: process.env.EMAIL_PASS, 
+        user: "tyagiishiva@gmail.com",
+        pass: "pwqx hwyr xobk ifus",
       },
-      authMethod: 'PLAIN',
+      authMethod: "PLAIN",
       tls: {
-        rejectUnauthorized: false
-      }
+        rejectUnauthorized: false,
+      },
     });
 
     await transporter.sendMail({
-      from: process.env.EMAIL_USER,
-      to: ["tyagiishiva@gmail.com","shivatyagii@outlook.com"],
+      from: "tyagiishiva@gmail.com",
+      to: ["tyagiishiva@gmail.com", "shivatyagii@outlook.com"],
       subject: "Portfolio",
       html: `
         <h5>${name} contacted you from your portfilio site</h5>
