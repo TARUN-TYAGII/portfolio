@@ -120,7 +120,7 @@ export default function BuyMeCoffee() {
       className="fixed bottom-8 right-8 bg-gradient-to-r from-yellow-800 to-yellow-900 text-white px-6 py-3 rounded-full flex items-center space-x-2 shadow-lg hover:scale-105 transform transition-all duration-200 disabled:opacity-50"
     >
       <Coffee className="w-5 h-5" />
-      <span>{loading ? 'Processing...' : 'Buy me a coffee'}</span>
+      <span>{loading ? 'Processing...' : 'Buy me a chai'}</span>
     </button>
   );
 }
