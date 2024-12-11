@@ -5,9 +5,10 @@ import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import axios from "axios";
 import { motion } from "framer-motion";
-import Header from "./component/AnimatedSection";
+import Header from "./component/Header";
 import AnimatedSection from "./component/AnimatedSection";
 import { Github, Linkedin, Mail, Phone, Hand } from "lucide-react";
+import BuyMeCoffee from "./component/BuyMeCoffee";
 
 const toastConfig = {
   position: "bottom-right",
@@ -278,6 +279,7 @@ export default function Home() {
               </form>
             </div>
           </AnimatedSection>
+          <BuyMeCoffee />
         </section>
       </main>
 

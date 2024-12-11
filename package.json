@@ -9,15 +9,19 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@stripe/stripe-js": "^5.2.0",
     "axios": "^1.7.9",
     "framer-motion": "^11.13.5",
     "lucide-react": "^0.468.0",
     "next": "15.0.4",
     "nodemailer": "^6.9.16",
+    "razorpay": "^2.9.5",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
     "react-intersection-observer": "^9.13.1",
-    "react-toastify": "^10.0.6"
+    "react-toastify": "^10.0.6",
+    "short-unique-id": "^5.2.0",
+    "stripe": "^17.4.0"
   },
   "devDependencies": {
     "@types/node": "22.10.1",
